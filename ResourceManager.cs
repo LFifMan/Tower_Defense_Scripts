@@ -3,13 +3,13 @@ using TMPro;
 
 public class ResourceManager : MonoBehaviour
 {
-    public TextMeshProUGUI goldText;  // Drag the appropriate Text element to this field in the Inspector
-    public TextMeshProUGUI stoneText;
+    public TextMeshProUGUI goldText;
+    public TextMeshProUGUI woodText;
     public TextMeshProUGUI ironText;
     public TextMeshProUGUI foodText;
 
     public int gold = 100;
-    public int stone = 100;
+    public int wood = 100;
     public int iron = 100;
     public int food = 100;
 
@@ -34,12 +34,12 @@ public class ResourceManager : MonoBehaviour
     public int GetGold() { return gold; }
     public int GetFood() { return food; }
     public int GetIron() { return iron; }
-    public int GetStone() { return stone; }
+    public int GetWood() { return wood; }
 
     public bool CanAfford(ResourceCost cost)
     {
         return gold >= cost.gold && food >= cost.food &&
-               iron >= cost.iron && stone >= cost.stone;
+               iron >= cost.iron && stone >= cost.wood;
     }
 
     public void AddResources(ResourceCost cost)
@@ -47,7 +47,7 @@ public class ResourceManager : MonoBehaviour
         gold += cost.gold;
         food += cost.food;
         iron += cost.iron;
-        stone += cost.stone;
+        wood += cost.wood;
         UpdateUI();
     }
 
@@ -56,18 +56,18 @@ public class ResourceManager : MonoBehaviour
         gold -= cost.gold;
         food -= cost.food;
         iron -= cost.iron;
-        stone -= cost.stone;
+        wood -= cost.wood;
         UpdateUI();
     }
 
     private void UpdateUI()
     {
         // Update UI elements here
-        if(goldText != null) goldText.text = "Gold: " + gold.ToString();
-        if(stoneText != null) stoneText.text = "Stone: " + stone.ToString();
-        if(ironText != null) ironText.text = "Iron: " + iron.ToString();
-        if(foodText != null) foodText.text = "Food: " + food.ToString();
+        if(goldText != null) goldText.text = "Gold: " + gold;
+        if(woodText != null) woodText.text = "Wood: " + wood;
+        if(ironText != null) ironText.text = "Iron: " + iron;
+        if(foodText != null) foodText.text = "Food: " + food;
         // For now, just logging to console
-        Debug.Log($"Updated Resources - Gold: {gold}, Stone: {stone}, Iron: {iron}, Food: {food}");
+        Debug.Log($"Updated Resources - Gold: {gold}, Wood: {wood}, Iron: {iron}, Food: {food}");
     }
 }

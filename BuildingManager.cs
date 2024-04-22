@@ -24,7 +24,7 @@ public class BuildingManager : MonoBehaviour
     public bool CanBuild(BuildingData buildingData)
     {
         // Check if prerequisites are met and if resources are available
-        return true; // Replace with actual checks
+        return ResourceManager.instance.CanAfford(new ResourceCost(buildingData.WoodCost, buildingData.GoldCost, buildingData.IronCost, buildingData.FoodCost));
     }
 
     public void PurchaseBuilding(BuildingData buildingData)
@@ -35,17 +35,12 @@ public class BuildingManager : MonoBehaviour
             $"{buildingData.IronCost} iron, and " +
             $"{buildingData.FoodCost} food.");
                   
-        if (CanBuild(buildingData))
-        {
-            Debug.logs("Building can be built");
-            // Deduct resources and instantiate the building prefab in the scene
-            // Add the building to builtBuildings list
-            // Invoke the OnBuilt method of the building instance
-        }
-        else
-        {
-            Debug.logs("Building cannot be built");
-            // Inform the player they can't build the building
+        if (CanBuild(buildingData)) {
+            Debug.Log($"Building purchased: {buildingData.Name}");
+            ResourceManager.instance.SubtractResources(new ResourceCost(buildingData.WoodCost, buildingData.GoldCost, buildingData.IronCost, buildingData.FoodCost));
+            // Instantiate building prefab and update builtBuildings list
+        } else {
+            Debug.Log("Not enough resources to build: " + buildingData.Name);
         }
     }
 }
