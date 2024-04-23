@@ -15,6 +15,9 @@ public class ResourceManager : MonoBehaviour
 
     public static ResourceManager instance;
 
+    public TextMeshProUGUI unassignedVillagersText; // UI text for unassigned villagers
+    public int unassignedVillagers = 5; // Starting number of unassigned villagers
+
     void Awake()
     {
         // Ensure there's only one ResourceManager instance (singleton pattern)
@@ -27,7 +30,7 @@ public class ResourceManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        UpdateUI();
+        UpdateResourceUI();
     }
 
     // Getters
@@ -48,7 +51,7 @@ public class ResourceManager : MonoBehaviour
         food += cost.food;
         iron += cost.iron;
         wood += cost.wood;
-        UpdateUI();
+        UpdateResourceUI();
     }
 
     public void SubtractResources(ResourceCost cost)
@@ -57,10 +60,10 @@ public class ResourceManager : MonoBehaviour
         food -= cost.food;
         iron -= cost.iron;
         wood -= cost.wood;
-        UpdateUI();
+        UpdateResourceUI();
     }
 
-    private void UpdateUI()
+    private void UpdateResourceUI()
     {
         // Update UI elements here
         if(goldText != null) goldText.text = "Gold: " + gold;
